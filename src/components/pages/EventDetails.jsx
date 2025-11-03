@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
@@ -15,11 +16,10 @@ import Events from "@/components/pages/Events";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import RegistrationModal from "@/components/molecules/RegistrationModal";
-import { useAuth } from "@/hooks/useAuth";
 
 const EventDetails = () => {
   const { id } = useParams();
-  const { isAuthenticated } = useAuth();
+const { isAuthenticated } = useSelector((state) => state.user);
 const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
