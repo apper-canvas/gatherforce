@@ -2,12 +2,10 @@ import React, { createContext, useEffect, useState } from "react";
 import { Route, Router, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { clearUser, setUser } from "./store/userSlice";
+import About from "@/components/pages/About";
+import PromptPassword from "@/components/pages/PromptPassword";
 import Callback from "@/components/pages/Callback";
 import ErrorPage from "@/components/pages/ErrorPage";
-import ResetPassword from "@/components/pages/ResetPassword";
-import PromptPassword from "@/components/pages/PromptPassword";
-import About from "@/components/pages/About";
 import EventDetails from "@/components/pages/EventDetails";
 import Home from "@/components/pages/Home";
 import CreateEvent from "@/components/pages/CreateEvent";
@@ -18,7 +16,9 @@ import Signup from "@/components/pages/Signup";
 import MyEvents from "@/components/pages/MyEvents";
 import EditEvent from "@/components/pages/EditEvent";
 import Login from "@/components/pages/Login";
+import ResetPassword from "@/components/pages/ResetPassword";
 import Layout from "@/components/organisms/Layout";
+import { clearUser, setUser } from "@/store/userSlice";
 
 // Create auth context
 export const AuthContext = createContext(null);
@@ -60,8 +60,8 @@ function AppContent() {
   const userState = useSelector((state) => state.user);
   const isAuthenticated = userState?.isAuthenticated || false;
 
-// Initialize ApperClient globally for email notifications
-// Initialize ApperUI once when the app loads
+  // Initialize ApperClient globally for email notifications
+  // Initialize ApperUI once when the app loads
   useEffect(() => {
     const { ApperClient, ApperUI } = window.ApperSDK;
     
@@ -135,8 +135,8 @@ function AppContent() {
       }
     });
   }, [navigate, dispatch]);
-};
-// Authentication methods to share via context
+
+  // Authentication methods to share via context
   const authMethods = {
     isInitialized,
     logout: async () => {
@@ -156,7 +156,7 @@ function AppContent() {
     return <div className="loading flex items-center justify-center p-6 h-screen w-full"><svg className="animate-spin" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M12 2v4"></path><path d="m16.2 7.8 2.9-2.9"></path><path d="M18 12h4"></path><path d="m16.2 16.2 2.9 2.9"></path><path d="M12 18v4"></path><path d="m4.9 19.1 2.9-2.9"></path><path d="M2 12h4"></path><path d="m4.9 4.9 2.9 2.9"></path></svg></div>;
   }
 
-return (
+  return (
     <AuthContext.Provider value={authMethods}>
       <Layout>
         <Routes>
@@ -166,7 +166,7 @@ return (
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/about" element={<About />} />
 
-{/* Auth Routes */}
+          {/* Auth Routes */}
           <Route path="/login" element={
             <PublicRoute>
               <Login />
@@ -182,7 +182,7 @@ return (
           <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
           <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
 
-{/* Protected Routes */}
+          {/* Protected Routes */}
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
@@ -221,7 +221,7 @@ return (
         draggable
         pauseOnHover
       />
-    </AuthContext.Provider>
+</AuthContext.Provider>
   );
 }
 
