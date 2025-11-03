@@ -3,11 +3,11 @@ import HeroSection from "@/components/organisms/HeroSection";
 import FeaturedEvents from "@/components/organisms/FeaturedEvents";
 import EventCategories from "@/components/organisms/EventCategories";
 import UpcomingEvents from "@/components/organisms/UpcomingEvents";
-import { useAuth } from "@/hooks/useAuth";
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const handleSearch = (query) => {
     navigate(`/events?search=${encodeURIComponent(query)}`);
