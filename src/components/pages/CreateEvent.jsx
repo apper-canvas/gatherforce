@@ -9,11 +9,11 @@ import Textarea from "@/components/atoms/Textarea";
 import Select from "@/components/atoms/Select";
 import Card from "@/components/atoms/Card";
 import { eventService } from "@/services/api/eventService";
-import { useAuth } from "@/hooks/useAuth";
+import { useSelector } from 'react-redux';
 
 const CreateEvent = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+const user = useSelector((state) => state.user.user);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
